@@ -1,4 +1,3 @@
-
 name: Publicar sitio en S3
 
 on:
@@ -9,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -19,7 +17,6 @@ jobs:
           cache: npm
 
       - run: npm ci
-
       - run: npm run build
 
       - name: Credenciales de AWS
@@ -30,5 +27,5 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
 
-      - name: Subir sitio a S3
+      - name: Subir out/ a S3
         run: aws s3 sync ./out s3://${{ secrets.S3_BUCKET }} --delete
